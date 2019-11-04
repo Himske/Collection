@@ -1,11 +1,13 @@
 Objective & Scope:
 ==================
 Create a webpage that can be used from a browser either on mobile, tablett or desktop
+Fetch information from other webpages and store in backend
+Search and add with barcode scanner (mobile)
 
 Purpose:
 ========
-Learn/practice web development
-Keep track of comic books
+Learn/practice python web development
+Keep track of collecition of comic books and books
 
 Target Audience:
 ================
@@ -13,13 +15,17 @@ Me
 
 Technology Requirements / API:
 ==============================
-HTML5
-CSS3
-JavaScript
+Python 3.7
+Flask
+Bootstrap
+Html 5
+CSS 3
 GitHub
-Wireframing & Mockups: PhotoShop, Sketch
-Automated Testing
+Some database (SQLite in dev) or fakeredis with local file dump
+
+Automated testing and deployment
 Search
+
 Comic book
 - Title
 - Sub-title
@@ -33,6 +39,17 @@ Comic book
 - Number, eg. Volume 1 of 9
 - ISBN
 
+Book
+- Title
+- Sub-title
+- Year
+- Pages
+- Author(s)
+- Publisher
+- Cover
+- Number, eg. Volume 1 of 9
+- ISBN
+
 Deployment:
 ===========
-Deploy on NAS
+Deploy on NAS (maybe) or surf computer
