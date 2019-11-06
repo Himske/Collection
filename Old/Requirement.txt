@@ -37,7 +37,8 @@ Comic book
 - Character(s), eg. Batman
 - Cover
 - Number, eg. Volume 1 of 9
-- ISBN
+- ISBN-13
+- ISBN-10
 
 Book
 - Title
@@ -48,7 +49,8 @@ Book
 - Publisher
 - Cover
 - Number, eg. Volume 1 of 9
-- ISBN
+- ISBN-13
+- ISBN-10
 
 Deployment:
 ===========
