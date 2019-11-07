@@ -6,41 +6,41 @@ import requests
 
 SESSION = requests.Session()
 
-# SEARCH_URL = 'https://us.nicebooks.com/search/isbn'
-SEARCH_URL = 'https://us.nicebooks.com/search'
+BOOK_URL = 'https://isbndb.com/book/9781779501202'
 # PARAMS = {'isbn': '9780307593962'} # author and introduction
 # PARAMS = {'isbn': '9780553382563'} # only author
 # PARAMS = {'isbn': '9780765319197'} # with subtitle
-# PARAMS = {'isbn': '9781779501202'} # Doomsday Clock Part 1
-# PARAMS = {'isbn': '9781401220884'} # Superman : Brainiac
-# PARAMS = {'isbn': '9781779501127'}
-PARAMS = {'q': '9781779501127'}
+PARAMS = {'isbn': '9781779501202'} # Doomsday Clock Part 1
 
 HEADERS = {
-    'Accept': 'text/html, application/xhtml+xml, application/xml; q=0.9, */*; q=0.8',
     'Accept-Encoding': 'gzip, deflate, br',
     'Accept-Language': 'sv-SE, sv; q=0.8, en-US; q=0.5, en; q=0.3',
-    # 'Cache-Control': 'max-age=0',
-    # 'Connection': 'Keep-Alive',
-    # 'Host': 'us.nicebooks.com',
-    'Referer': 'https://us.nicebooks.com/search/isbn',
-    'User-Agent': 'my-app/0.0.1'
-    # 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.17134'
+    'Cache-Control': 'no-cache',
+    'Connection': 'Keep-Alive',
+    'Host': 'isbndb.com',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.17134'
 }
 
-# RESPONSE = SESSION.get(SEARCH_URL)
-# RESPONSE = SESSION.get(SEARCH_URL, headers=HEADERS)
-RESPONSE = SESSION.get(SEARCH_URL, params=PARAMS, headers=HEADERS)
-# RESPONSE = SESSION.post(SEARCH_URL, data=PARAMS)
+RESPONSE = SESSION.get(BOOK_URL, headers=HEADERS)
+# RESPONSE = SESSION.get(BOOK_URL, params=PARAMS, headers=HEADERS)
 
 # soup = bs.BeautifulSoup(RESPONSE.text, 'lxml')
 soup = bs.BeautifulSoup(RESPONSE.text, 'html5lib')
 
-BOOK_URL = 'https://us.nicebooks.com' + soup.find('a', attrs={'class': 'title'}).get('href')
-RESPONSE = SESSION.get(BOOK_URL, headers=HEADERS)
+book_div = soup.find('div', attrs={'class': 'book-table'})
 
-soup = bs.BeautifulSoup(RESPONSE.text, 'html5lib')
+image_url = soup.find('object', attrs={'type': 'image/png'}).get('data')
+if image_url:
+    remote_image = SESSION.get(image_url)
+    with open(f'images/{PARAMS["isbn"]}.jpg', 'wb') as local_image:
+        local_image.write(remote_image.content)
+    image_name = local_image.name[7:] # if folder name is images
+    print(image_name)
 
+for child in book_div.table.tbody.children:
+    print(child)
+
+'''
 title = soup.find('span', attrs={'itemprop': 'name'})
 if title:
     print(title.text)
@@ -102,3 +102,4 @@ if isbn_list:
 description = soup.find('p', attrs={'itemprop': 'description'})
 if description:
     print(description.text)
+'''
