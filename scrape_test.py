@@ -7,9 +7,11 @@ import requests
 SESSION = requests.Session()
 
 SEARCH_URL = 'https://us.nicebooks.com/search/isbn'
-PARAMS = {'isbn': '9780307593962'} # author and introduction
+# PARAMS = {'isbn': '9780307593962'} # author and introduction
 # PARAMS = {'isbn': '9780553382563'} # only author
 # PARAMS = {'isbn': '9780765319197'} # with subtitle
+PARAMS = {'isbn': '9781779501202'} # Doomsday Clock Part 1
+
 HEADERS = {
     'Accept-Encoding': 'gzip, deflate, br',
     'Accept-Language': 'sv-SE, sv; q=0.8, en-US; q=0.5, en; q=0.3',
@@ -32,6 +34,18 @@ soup = bs.BeautifulSoup(RESPONSE.text, 'html5lib')
 title = soup.find('span', attrs={'itemprop': 'name'})
 if title:
     print(title.text)
+
+image_url = soup.find('img', attrs={'itemprop': 'image'}).get('src')
+if image_url:
+    remote_image = SESSION.get(image_url)
+    with open(f'images/{PARAMS["isbn"]}.jpg', 'wb') as local_image:
+        local_image.write(remote_image.content)
+    image_name = local_image.name[7:] # if folder name is images
+    print(image_name)
+    image_url = image_url[:image_url.rfind('?')]
+    remote_image = SESSION.get(image_url)
+    with open(f'images/{PARAMS["isbn"]}_large.jpg', 'wb') as large_image:
+        large_image.write(remote_image.content)
 
 sub_title = soup.find('small', attrs={'itemprop': 'alternativeHeadline'})
 if sub_title:
