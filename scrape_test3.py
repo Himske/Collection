@@ -13,7 +13,7 @@ SEARCH_URL = 'https://us.nicebooks.com/search'
 # PARAMS = {'isbn': '9780765319197'} # with subtitle
 # PARAMS = {'isbn': '9781779501202'} # Doomsday Clock Part 1
 # PARAMS = {'isbn': '9781401220884'} # Superman : Brainiac
-PARAMS = {'q': '9780553382563'}
+PARAMS = {'q': '9789171197078'}
 
 HEADERS = {
     'Accept': 'text/html, application/xhtml+xml, application/xml; q=0.9, */*; q=0.8',
@@ -55,11 +55,17 @@ publisher = soup.find('a', attrs={'itemprop': 'publisher'})
 if publisher:
     print(f'Publisher: {publisher.text}')
 
-publication_date = soup.find('div', attrs={'itemprop': 'datePublished'}).get('content')
+try:
+    publication_date = soup.find('div', attrs={'itemprop': 'datePublished'}).get('content')
+except:
+    publication_date = None
 if publication_date:
     print(f'Publication Date: {publication_date}')
 
-language_iso = soup.find('div', attrs={'itemprop': 'inLanguage'}).get('content')
+try:
+    language_iso = soup.find('div', attrs={'itemprop': 'inLanguage'}).get('content')
+except:
+    language_iso = None
 if language_iso:
     print(f'Language ISO: {language_iso}')
 
@@ -86,7 +92,10 @@ if isbn_list:
             print(f'ISBN 13: {isbn_13}')
 
 # TODO: check that isbn_13 isn't None
-image_url = soup.find('img', attrs={'itemprop': 'image'}).get('src')
+try:
+    image_url = soup.find('img', attrs={'itemprop': 'image'}).get('src')
+except:
+    image_url = None
 if image_url:
     remote_image = SESSION.get(image_url)
     with open(f'images/{isbn_13}.jpg', 'wb') as local_image:
