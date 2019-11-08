@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for book in books %}
+        <article class="media content-section">
+          <img class="article-img" src="" alt="{{ book.image }}">
+          <div class="media-body">
+            <a class="mr-2" href="#">{{ book.author }}</a>
+            <h2><a class="article-title" href="#">{{ book.title }}</a></h2>
+            {% if book.sub_title %}
+                <h4 class="article-subtitle">{{ book.sub_title }}</h4>
+            {% endif %}
+            <p class="article-publisher">Publisher: {{ book.publisher }}</p>
+            <small class="article-publication-date text-muted">Publication date: {{ book.publication_date }}</small>
+            <p class="article-description">{{ book.description }}</p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}

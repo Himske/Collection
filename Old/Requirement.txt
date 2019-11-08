@@ -44,6 +44,7 @@ Book
 - Title
 - Sub-title
 - Year
+- Publication Date
 - Pages
 - Author(s)
 - Publisher
@@ -51,6 +52,9 @@ Book
 - Number, eg. Volume 1 of 9
 - ISBN-13
 - ISBN-10
+- Description
+- Language
+- Format
 
 Deployment:
 ===========
