@@ -1,5 +1,13 @@
-from flask import Flask, render_template, url_for
+'''
+Docstring
+'''
+
+from flask import Flask, render_template, url_for, flash, redirect
+from forms import BookForm
+
 app = Flask(__name__)
+
+app.config['SECRET_KEY'] = 'c1f527892b63e6654766d74a389ffdf9'
 
 books = [
     {
@@ -40,6 +48,15 @@ books = [
 @app.route('/home')
 def home():
     return render_template('home.html', books=books)
+
+@app.route('/add_book', methods=['GET', 'POST'])
+def add_book():
+    '''Endpoint for form for adding book'''
+    form = BookForm()
+    if form.validate_on_submit():
+        flash(f'Book added!', 'success')
+        return redirect(url_for('home'))
+    return render_template('add_book.html', title='Add Book', form=form)
 
 if __name__ == '__main__':
     app.run()

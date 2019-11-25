@@ -9,9 +9,9 @@
             {% if book.sub_title %}
                 <h4 class="article-subtitle">{{ book.sub_title }}</h4>
             {% endif %}
-            <p class="article-publisher">Publisher: {{ book.publisher }}
-              <small class="article-publication-date text-muted pl-3">Publication date: {{ book.publication_date }}</small>
-            </p>
+            <p class="article-publisher">Publisher: {{ book.publisher }}</p>
+            <small class="article-publication-date text-muted">Publication date: {{ book.publication_date }}</small>
+            <p class="article-description">{{ book.description }}</p>
           </div>
         </article>
     {% endfor %}
