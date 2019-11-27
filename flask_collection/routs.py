@@ -2,34 +2,10 @@
 Docstring
 '''
 
-from flask import Flask, render_template, url_for, flash, redirect
-from flask_sqlalchemy import SQLAlchemy
-from forms import BookForm
-
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'c1f527892b63e6654766d74a389ffdf9'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-db = SQLAlchemy(app)
-
-class Book(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    author = db.Column(db.String(50), nullable=False)
-    title = db.Column(db.String(50), nullable=False)
-    sub_title = db.Column(db.String(50))
-    volume = db.Column(db.Integer)
-    publication_date = db.Column(db.DateTime)
-    print_format = db.Column(db.String(20))
-    pages = db.Column(db.Integer)
-    publisher = db.Column(db.String(20))
-    cover = db.Column(db.String(20))
-    language = db.Column(db.String(20))
-    language_iso = db.Column(db.String(2))
-    isbn_13 = db.Column(db.String(13))
-    isbn_10 = db.Column(db.String(10))
-    description = db.Column(db.Text)
-
-    def __repr__(self):
-        return f'{self.title} written by {self.author}'
+from flask import render_template, url_for, flash, redirect
+from flask_collection import app
+from flask_collection.forms import BookForm
+from flask_collection.models import Book
 
 books = [
     {
@@ -79,6 +55,3 @@ def add_book():
         flash(f'Book added!', 'success')
         return redirect(url_for('home'))
     return render_template('add_book.html', title='Add Book', form=form)
-
-if __name__ == '__main__':
-    app.run()
