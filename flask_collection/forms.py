@@ -26,7 +26,7 @@ class BookForm(FlaskForm):
     isbn_13 = StringField('ISBN-13', validators=[Optional()])
     isbn_10 = StringField('ISBN-10', validators=[Optional()])
     description = TextAreaField('Description')
-    submit = SubmitField('Add Book')
+    submit = SubmitField('Save Book')
 
 
 class RegistrationForm(FlaskForm):

@@ -51,7 +51,7 @@ a.article-title:hover {
 }
 
 .article-img {
-  height: 65px;
+  height: 95px;
   width: 65px;
   margin-right: 16px;
 }
@@ -73,12 +73,17 @@ a.article-title:hover {
 
 .article-publisher {
   margin-bottom: 2px;
+  padding-bottom: 4px;
 }
 
 .article-svg {
   width: 25px;
   height: 25px;
   vertical-align: middle;
+}
+
+.article-volume {
+  padding-top: 4px;
 }
 
 .account-img {

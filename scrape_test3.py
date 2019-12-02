@@ -9,11 +9,12 @@ SESSION = HTMLSession()
 # SEARCH_URL = 'https://us.nicebooks.com/search/isbn'
 SEARCH_URL = 'https://us.nicebooks.com/search'
 # PARAMS = {'isbn': '9780307593962'} # author and introduction
-PARAMS = {'q': '9780553382563'} # only author
+# PARAMS = {'q': '9780553382563'} # only author
 # PARAMS = {'q': '9780765319197'} # with subtitle
 # PARAMS = {'isbn': '9781779501202'} # Doomsday Clock Part 1
 # PARAMS = {'isbn': '9781401220884'} # Superman : Brainiac
 # PARAMS = {'q': '9789171197078'}
+PARAMS = {'q': '9789176424315'}
 
 HEADERS = {
     'Accept': 'text/html, application/xhtml+xml, application/xml; q=0.9, */*; q=0.8',
