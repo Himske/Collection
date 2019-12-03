@@ -90,15 +90,21 @@ def add_book():
     '''Endpoint for form for adding book'''
     form = BookForm()
     if form.validate_on_submit():
+        cover_file = 'placeholder.png'
+        if form.cover.data:
+            cover_file = form.cover.data.filename
         book = Book(author=form.author.data,
                     title=form.title.data,
                     sub_title=form.sub_title.data,
+                    org_title=form.org_title.data,
+                    org_sub_title=form.org_sub_title.data,
                     volume=form.volume.data,
                     publication_date=form.publication_date.data,
+                    org_publication_year=form.org_publication_year.data,
                     print_format=form.print_format.data,
                     pages=form.pages.data,
                     publisher=form.publisher.data,
-                    cover=form.cover.data.filename,
+                    cover=cover_file,
                     language=form.language.data,
                     language_iso=form.language_iso.data,
                     isbn_13=form.isbn_13.data,
@@ -128,8 +134,11 @@ def update_book(book_id):
         book.author = form.author.data
         book.title = form.title.data
         book.sub_title = form.sub_title.data
+        book.org_title = form.org_title.data
+        book.org_sub_title = form.org_sub_title.data
         book.volume = form.volume.data
         book.publication_date = form.publication_date.data
+        book.org_publication_year = form.org_publication_year.data
         book.print_format = form.print_format.data
         book.pages = form.pages.data
         book.publisher = form.publisher.data
@@ -147,11 +156,15 @@ def update_book(book_id):
         form.author.data = book.author
         form.title.data = book.title
         form.sub_title.data = book.sub_title
+        form.org_title.data = book.org_title
+        form.org_sub_title.data = book.org_sub_title
         form.volume.data = book.volume
         form.publication_date.data = book.publication_date
+        form.org_publication_year.data = book.org_publication_year
         form.print_format.data = book.print_format
         form.pages.data = book.pages
         form.publisher.data = book.publisher
+        form.cover.data = book.cover # TODO: This needs some fix since nothing is showing
         form.language.data = book.language
         form.language_iso.data = book.language_iso
         form.isbn_13.data = book.isbn_13

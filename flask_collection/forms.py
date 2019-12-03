@@ -15,8 +15,12 @@ class BookForm(FlaskForm):
     author = StringField('Author', validators=[DataRequired(), Length(min=2, max=50)])
     title = StringField('Title', validators=[DataRequired(), Length(min=2, max=50)])
     sub_title = StringField('Sub Title', validators=[Optional(), Length(min=2, max=50)])
+    org_title = StringField('Original Title', validators=[Optional(), Length(min=2, max=50)])
+    org_sub_title = StringField('Original Sub Title',
+                                validators=[Optional(), Length(min=2, max=50)])
     volume = StringField('Volume', validators=[Optional()])
     publication_date = DateField('Publication Date', validators=[Optional()])
+    org_publication_year = StringField('Original Publication Year', validators=[Optional()])
     print_format = StringField('Format', validators=[Optional(), Length(min=2, max=20)])
     pages = IntegerField('Pages', validators=[Optional(), NumberRange(max=2000)])
     publisher = StringField('Publisher', validators=[Optional(), Length(min=2, max=20)])

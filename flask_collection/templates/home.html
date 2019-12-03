@@ -2,7 +2,7 @@
 {% block content %}
     {% for book in books %}
         <article class="media content-section">
-          <img class="article-img" src="{{ url_for('static', filename='cover_images/' + book.cover) }}" alt="{{ book.image }}">
+          <img class="article-img" src="{{ url_for('static', filename='cover_images/' + book.cover) }}" alt="{{ book.cover }}">
           <div class="media-body">
             <a class="mr-2" href="#">{{ book.author }}</a>
             <h2><a class="article-title" href="{{ url_for('view_book', book_id=book.id) }}">{{ book.title }}</a></h2>

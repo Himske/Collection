@@ -17,7 +17,14 @@
       <p class="article-publisher">Publisher: {{ book.publisher }}
         <small class="article-publication-date text-muted pl-3">Publication date: {{ book.publication_date.strftime('%Y-%m-%d') }}</small>
       </p>
-      <p class="article-volume">Volume: {{ book.volume }}</p>
+      {% if book.org_title %}
+        <p>Original Title: {{ book.org_title }}</p>
+      {% endif %}
+      {% if book.org_sub_title %}
+          <p>Original Sub-title: {{ book.org_sub_title }}</p>
+      {% endif %}
+      <p>Original Publication Year: {{ book.org_publication_year }}</p>
+      <p>Volume: {{ book.volume }}</p>
       <p>Print Format: {{ book.print_format }}</p>
       <p>Pages: {{ book.pages }}</p>
       <p>Language: {{ book.language }}</p>
