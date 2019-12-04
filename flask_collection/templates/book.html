@@ -15,7 +15,9 @@
           <h4 class="article-subtitle">Sub-title: {{ book.sub_title }}</h4>
       {% endif %}
       <p class="article-publisher">Publisher: {{ book.publisher }}
-        <small class="article-publication-date text-muted pl-3">Publication date: {{ book.publication_date.strftime('%Y-%m-%d') }}</small>
+        {% if book.publication_date %}
+          <small class="article-publication-date text-muted pl-3">Publication date: {{ book.publication_date.strftime('%Y-%m-%d') }}</small>
+        {% endif %}
       </p>
       {% if book.org_title %}
         <p>Original Title: {{ book.org_title }}</p>
