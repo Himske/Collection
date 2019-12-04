@@ -3,8 +3,8 @@ Docstring
 '''
 
 import os
-import pandas as pd
 import filecmp
+import pandas as pd
 from requests_html import HTMLSession
 from flask_collection.models import Book
 from flask_collection import db
