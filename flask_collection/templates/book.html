@@ -4,7 +4,7 @@
     <img class="article-img" src="{{ url_for('static', filename='cover_images/' + book.cover) }}" alt="{{ book.cover }}">
     <div class="media-body">
       <div class="article-metadata">
-        <a class="mr-2" href="#">Author: {{ book.author }}</a>
+        <a class="mr-2" href="{{ url_for('books_by_author', author=book.author) }}">Author: {{ book.author }}</a>
         <div>
           <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('update_book', book_id=book.id) }}">Update</a>
           <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>

@@ -14,7 +14,9 @@ from flask_collection.models import Book, User
 @app.route('/')
 @app.route('/home')
 def home():
-    books = Book.query.all()
+    page = request.args.get('page', 1, type=int)
+    books = Book.query.order_by(Book.author.asc(), Book.title.asc())\
+        .paginate(page=page, per_page=25)
     return render_template('home.html', books=books)
 
 
@@ -118,7 +120,6 @@ def add_book():
 
 
 @app.route('/book/<book_id>')
-@login_required
 def view_book(book_id):
     book = Book.query.get_or_404(book_id)
     return render_template('book.html', title=book.title, book=book)
@@ -182,3 +183,12 @@ def delete_book(book_id):
     db.session.commit()
     flash(f'Book deleted!', 'success')
     return redirect(url_for('home'))
+
+
+@app.route('/author/<string:author>')
+def books_by_author(author):
+    page = request.args.get('page', 1, type=int)
+    books = Book.query.filter_by(author=author)\
+        .order_by(Book.author.asc(), Book.title.asc())\
+        .paginate(page=page, per_page=25)
+    return render_template('books_by_author.html', books=books, author=author)
