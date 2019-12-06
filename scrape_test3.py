@@ -14,7 +14,7 @@ SEARCH_URL = 'https://us.nicebooks.com/search'
 # PARAMS = {'isbn': '9781779501202'} # Doomsday Clock Part 1
 # PARAMS = {'isbn': '9781401220884'} # Superman : Brainiac
 # PARAMS = {'q': '9789171197078'}
-PARAMS = {'q': '9789189128316'}
+PARAMS = {'q': '9781401246198'}
 
 HEADERS = {
     'Accept': 'text/html, application/xhtml+xml, application/xml; q=0.9, */*; q=0.8',
@@ -25,11 +25,16 @@ HEADERS = {
     'Host': 'us.nicebooks.com',
     'Referer': 'https://us.nicebooks.com/search/isbn',
     # 'User-Agent': 'my-app/0.0.1'
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.17134'
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '\
+        '(KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.17134'
 }
 
 
 def get_soup():
+    '''
+    Gets a beautifulsoup object based on the result of the second url request\n
+    The first request is to the ISBN search page and the second is to the actual result page
+    '''
     response = SESSION.get(SEARCH_URL, params=PARAMS, headers=HEADERS)
     response.html.render()
     # soup = bs.BeautifulSoup(RESPONSE.text, 'lxml')
@@ -38,12 +43,13 @@ def get_soup():
         book_url = 'https://us.nicebooks.com' + soup.find('a', attrs={'class': 'title'}).get('href')
         response = SESSION.get(book_url, headers=HEADERS)
         soup = bs.BeautifulSoup(response.text, 'html5lib')
-    except:
+    except AttributeError:
         soup = None
     return soup
 
 
 def get_element_text(soup: bs.BeautifulSoup, tag, itemprop):
+    '''Gets the text from a beautifulsoup element based on the tag and itemprop'''
     element = soup.find(tag, attrs={'itemprop': itemprop})
     if element:
         return element.text
@@ -51,9 +57,10 @@ def get_element_text(soup: bs.BeautifulSoup, tag, itemprop):
 
 
 def get_element_content(soup: bs.BeautifulSoup, tag, itemprop):
+    '''Gets the content from a beautifulsoup element based on the tag and itemprop'''
     try:
         element = soup.find(tag, attrs={'itemprop': itemprop}).get('content')
-    except:
+    except AttributeError:
         element = None
     return element
 
@@ -66,10 +73,10 @@ def get_author(soup: bs.BeautifulSoup):
 
 
 def get_book_format(soup: bs.BeautifulSoup):
-    book_format = soup.find('link', attrs={'itemprop': 'bookFormat'})
-    if book_format:
-        book_format = str(book_format.find_parent("div").text.strip())
-        return book_format.replace('Format:', '')
+    print_format = soup.find('link', attrs={'itemprop': 'bookFormat'})
+    if print_format:
+        print_format = str(print_format.find_parent("div").text.strip())
+        return print_format.replace('Format:', '')
     return None
 
 
@@ -90,20 +97,21 @@ def get_isbn_dict(soup: bs.BeautifulSoup):
 
 
 def get_image(soup: bs.BeautifulSoup, isbn_13: str):
+    image_name = None
     try:
         image_url = soup.find('img', attrs={'itemprop': 'image'}).get('src')
-    except:
+    except AttributeError:
         image_url = None
     if image_url:
         remote_image = SESSION.get(image_url)
         with open(f'flask_collection/static/cover_images/{isbn_13}.jpg', 'wb') as local_image:
             local_image.write(remote_image.content)
         image_name = local_image.name[37:]
-        print(f'Image name: {image_name}')
         image_url = image_url[:image_url.rfind('?')]
         remote_image = SESSION.get(image_url)
         with open(f'flask_collection/static/cover_images/{isbn_13}_large.jpg', 'wb') as large_image:
             large_image.write(remote_image.content)
+    return image_name
 
 
 if __name__ == '__main__':
@@ -137,4 +145,5 @@ if __name__ == '__main__':
         book_description = get_element_text(book_soup, 'p', 'description')
         print(f'Description: {book_description}')
         if 'isbn-13' in isbn_dict.keys():
-            get_image(book_soup, isbn_dict['isbn-13'])
+            book_image_name = get_image(book_soup, isbn_dict['isbn-13'])
+        print(f'Image name: {book_image_name}')
