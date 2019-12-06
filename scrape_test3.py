@@ -66,6 +66,7 @@ def get_element_content(soup: bs.BeautifulSoup, tag, itemprop):
 
 
 def get_author(soup: bs.BeautifulSoup):
+    '''Gets the author text from a beautifulsoup object'''
     author = soup.find(itemprop='author')
     if author:
         return author.span.text
@@ -73,6 +74,7 @@ def get_author(soup: bs.BeautifulSoup):
 
 
 def get_book_format(soup: bs.BeautifulSoup):
+    '''Gets the book format from a beautifulsoup object'''
     print_format = soup.find('link', attrs={'itemprop': 'bookFormat'})
     if print_format:
         print_format = str(print_format.find_parent("div").text.strip())
@@ -81,6 +83,7 @@ def get_book_format(soup: bs.BeautifulSoup):
 
 
 def get_isbn_dict(soup: bs.BeautifulSoup):
+    '''Gets ISBN-10 and ISBN-13 from a beautifulsoup object'''
     result = dict()
     isbn_list = soup.find_all('div', attrs={'itemprop': 'isbn'})
     if isbn_list:
@@ -97,6 +100,11 @@ def get_isbn_dict(soup: bs.BeautifulSoup):
 
 
 def get_image(soup: bs.BeautifulSoup, isbn_13: str):
+    '''
+    Get cover image files and stores them in the cover_images folder\n
+    Stores two sizes, one thumbnail and one large with isbn_13 as a name standard\n
+    Returns the filename for the thumbnail version
+    '''
     image_name = None
     try:
         image_url = soup.find('img', attrs={'itemprop': 'image'}).get('src')
@@ -114,7 +122,8 @@ def get_image(soup: bs.BeautifulSoup, isbn_13: str):
     return image_name
 
 
-if __name__ == '__main__':
+def get_book_info():
+    '''Gets all the information on a book from us.nicebooks.com'''
     retries = 0
     book_soup = get_soup()
     while book_soup is None and retries < 3:
@@ -147,3 +156,7 @@ if __name__ == '__main__':
         if 'isbn-13' in isbn_dict.keys():
             book_image_name = get_image(book_soup, isbn_dict['isbn-13'])
         print(f'Image name: {book_image_name}')
+
+
+if __name__ == '__main__':
+    get_book_info()
