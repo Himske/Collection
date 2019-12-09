@@ -14,7 +14,7 @@ SEARCH_URL = 'https://us.nicebooks.com/search'
 # PARAMS = {'isbn': '9781779501202'} # Doomsday Clock Part 1
 # PARAMS = {'isbn': '9781401220884'} # Superman : Brainiac
 # PARAMS = {'q': '9789171197078'}
-PARAMS = {'q': '9781401246198'}
+PARAMS = {'q': '9781569714027'}
 
 HEADERS = {
     'Accept': 'text/html, application/xhtml+xml, application/xml; q=0.9, */*; q=0.8',
