@@ -330,12 +330,14 @@ def convert_row_to_dict(row):
 def import_export_book_info():
     comic_book_df = get_df_from_csv()
     comic_book_list = get_book_info_from_df(comic_book_df)
+    '''
     with open('comic_book_export_fc.csv', 'w', encoding='utf-8', newline='') as output_file:
         fc = csv.DictWriter(output_file, fieldnames=comic_book_list[0].keys())
         fc.writeheader()
         fc.writerows(comic_book_list)
+    '''
     out_df = pd.DataFrame(comic_book_list)
-    out_df.to_csv('comic_book_export_df.csv')
+    out_df.to_csv('comic_book_export_df.csv', index=False)
 
 
 if __name__ == '__main__':
