@@ -21,7 +21,7 @@ Bootstrap
 Html 5
 CSS 3
 GitHub
-Some database (SQLite in dev) or fakeredis with local file dump
+Some database (SQLite in dev)
 
 Automated testing and deployment
 Search

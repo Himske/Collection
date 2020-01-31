@@ -4,8 +4,8 @@
         <article class="media content-section">
           <img class="article-img" src="{{ url_for('static', filename='cover_images/' + book.cover) }}" alt="{{ book.cover }}">
           <div class="media-body">
-            <a class="mr-2" href="{{ url_for('books_by_author', author=book.author) }}">{{ book.author }}</a>
-            <h2><a class="article-title" href="{{ url_for('view_book', book_id=book.id) }}">{{ book.title }}</a></h2>
+            <a class="mr-2" href="{{ url_for('books.books_by_author', author=book.author) }}">{{ book.author }}</a>
+            <h2><a class="article-title" href="{{ url_for('books.view_book', book_id=book.id) }}">{{ book.title }}</a></h2>
             {% if book.sub_title %}
                 <h4 class="article-subtitle">{{ book.sub_title }}</h4>
             {% endif %}
@@ -20,9 +20,9 @@
     {% for page_num in books.iter_pages(left_edge=2, right_edge=2, left_current=3, right_current=4) %}
         {% if page_num %}
           {% if books.page == page_num %}
-            <a class="btn btn-info mb-4" href="{{ url_for('home', page=page_num) }}">{{ page_num }}</a>
+            <a class="btn btn-info mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
           {% else %}
-            <a class="btn btn-outline-info mb-4" href="{{ url_for('home', page=page_num) }}">{{ page_num }}</a>
+            <a class="btn btn-outline-info mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
           {% endif %}
         {% else %}
           ...
