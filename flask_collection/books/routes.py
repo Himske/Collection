@@ -5,8 +5,9 @@ Docstring
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_required
 from flask_collection import db
-from flask_collection.books.forms import BookForm
+from flask_collection.books.forms import BookForm, FindBookForm
 from flask_collection.models import Book
+from comic_book_import_export import get_book_info
 
 
 books = Blueprint('books', __name__)
@@ -43,6 +44,16 @@ def add_book():
         flash(f'Book added!', 'success')
         return redirect(url_for('main.home'))
     return render_template('add_book.html', title='Add Book', form=form)
+
+
+@books.route('/find_book', methods=['GET', 'POST'])
+def find_book():
+    '''Endpoint for searching for a book using ISBN'''
+    form = FindBookForm()
+    if form.validate_on_submit():
+        book = get_book_info(form.isbn.data)
+        print(book)
+    return render_template('find_book.html', title='Find Book', form=form)
 
 
 @books.route('/book/<book_id>')

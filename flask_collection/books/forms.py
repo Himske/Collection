@@ -28,3 +28,7 @@ class BookForm(FlaskForm):
     isbn_10 = StringField('ISBN-10', validators=[Optional()])
     description = TextAreaField('Description')
     submit = SubmitField('Save Book')
+
+class FindBookForm(FlaskForm):
+    isbn = StringField('ISBN', validators=[DataRequired(), Length(min=10, max=13)])
+    submit = SubmitField('Search')
