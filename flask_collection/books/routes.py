@@ -97,7 +97,7 @@ def update_book(book_id):
         form.isbn_13.data = book.isbn_13
         form.isbn_10.data = book.isbn_10
         form.description.data = book.description
-    
+
     return render_template('add_book.html', title='Update Book', form=form)
 
 
@@ -114,7 +114,7 @@ def delete_book(book_id):
 @books.route('/author/<string:author>')
 def books_by_author(author):
     page = request.args.get('page', 1, type=int)
-    books = Book.query.filter_by(author=author)\
+    book_list = Book.query.filter_by(author=author)\
         .order_by(Book.author.asc(), Book.title.asc())\
         .paginate(page=page, per_page=25)
-    return render_template('books_by_author.html', books=books, author=author)
+    return render_template('books_by_author.html', books=book_list, author=author)
