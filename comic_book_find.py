@@ -1,15 +1,7 @@
 '''
-Importing old comic book info from old csv file
-if image url exists try to fetch the image and store it in a local folder
-If isbn exists run scrape
-If scrape is successfull store the grabbed information in a csv file and store any images in a
-local folder
+Find a comic book based on ISBN and adding it to the csv file.
 '''
 
-import os
-import math
-import filecmp
-import csv
 import bs4 as bs
 import pandas as pd
 from requests_html import HTMLSession
