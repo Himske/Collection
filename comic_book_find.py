@@ -276,6 +276,8 @@ def find_and_add_comic_book() -> None:
         comic_book_df = get_df_from_csv()
         comic_book_df = comic_book_df.append(comic_book, ignore_index=True)
         comic_book_df.to_csv('comic_book_export_df2.csv', index=False)
+    else:
+        print("Didn't find any comic book")
 
 
 if __name__ == '__main__':
