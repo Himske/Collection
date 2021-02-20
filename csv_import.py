@@ -34,7 +34,7 @@ df.columns = ['title',
 for row in df.itertuples(index=False):
     title, sub_title, author, publisher, publication_year, original_title, original_subtitle, \
         purchase_date, my_rating, cover, categories, isbn, took, notes, print_format, read_it, \
-            description = row
+        description = row
     book = Book()
     book.author = author if not pd.isna(author) else 'Various'
     book.title = title if not pd.isna(title) else None
