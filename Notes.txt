@@ -7,6 +7,10 @@ Update pip and install requirements:
 python -m pip install --upgrade pip
 pip install -r requirements.txt
 
+Create requirements.txt:
+========================
+pip freeze > requirements.txt 
+
 Activate:
 =========
 .\venv\Scripts\Activate.ps1

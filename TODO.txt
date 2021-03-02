@@ -1,0 +1,10 @@
+Extract all information from nicebooks.py and return json object
+Get image information and store images in a structured way
+Create update function
+
+Create working app, maybe web
+Database or csv? How to store images?
+
+Other sources for book information and/or images
+
+https://www.googleapis.com/books/v1/volumes?q=isbn:9789189538580  # Doesn't seem to work for comics
