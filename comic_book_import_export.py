@@ -27,7 +27,7 @@ HEADERS = {
     'Referer': 'https://us.nicebooks.com/search/isbn',
     # 'User-Agent': 'my-app/0.0.1'
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '\
-        '(KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.17134'
+                  '(KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.17134'
 }
 
 
@@ -295,8 +295,8 @@ def get_old_image(cover, isbn):
     if image_url:
         session = HTMLSession()
         remote_image = session.get(image_url)
-        with open(f'flask_collection/static/comic_book_covers/{isbn}_old.jpg', \
-                'wb') as local_image:
+        with open(f'flask_collection/static/comic_book_covers/{isbn}_old.jpg',
+                  'wb') as local_image:
             local_image.write(remote_image.content)
             image_name = local_image.name[42:]
             # print(f'Image name: {image_name}')

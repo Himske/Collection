@@ -22,7 +22,7 @@ HEADERS = {
 
 RESPONSE = SESSION.get(SEARCH_URL, params=PARAMS, headers=HEADERS)
 
-RESPONSE.html.render()
+RESPONSE.html.render(timeout=32, wait=0.5)
 
 # soup = bs.BeautifulSoup(RESPONSE.text, 'lxml')
 soup = bs.BeautifulSoup(RESPONSE.html.html, 'html5lib')
